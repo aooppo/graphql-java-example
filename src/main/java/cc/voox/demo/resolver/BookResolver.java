@@ -12,14 +12,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookResolver {
 
-
-    @QueryMethod
-    User owner(@QueryField(value = "book", root = true) Book source) {
-        System.out.println("get owner" + source);
-        Book root = GraphQLContextUtil.getSource(Book.class);
-        System.out.println(root.equals(source));
-        return source.getUser();
-    }
+    /**
+     * can code here if there is some effect
+     * otherwise we can use model on easy way
+     * <pre>
+     *      @QueryMethod
+     *     private User owner() {
+     *         return user;
+     *     }
+     * </pre>
+     */
+//    @QueryMethod
+//    User owner(@QueryField(value = "book", root = true) Book source) {
+//        return source.getUser();
+//    }
 
 
 }
