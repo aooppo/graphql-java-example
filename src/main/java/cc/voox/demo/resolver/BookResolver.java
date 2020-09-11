@@ -24,6 +24,7 @@ public class BookResolver {
      */
 //    @QueryMethod
 //    User owner(@QueryField(value = "book", root = true) Book source) {
+//           query db OR send http get data
 //        return source.getUser();
 //    }
 
