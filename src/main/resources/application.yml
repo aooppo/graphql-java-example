@@ -1,0 +1,28 @@
+spring:
+  jpa:
+    hibernate:
+      # 多数据源下，该属性不生效，需要在配置中额外指定，这里仅表示普通定义
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    open-in-view: false
+    show-sql: true
+  # 定义不同数据源的连接信息
+  datasource:
+      url: jdbc:postgresql://localhost:5432/graphql_demo
+      username: dbadmin
+      password: dl123
+      driver-class-name: org.postgresql.Driver
+      hikari:
+        maximum-pool-size: 2
+
+
+server:
+  port: 8001
+graphql:
+  scan-path: cc.voox.demo

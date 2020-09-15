@@ -8,5 +8,5 @@ import lombok.ToString;
 public class UserInput {
     private Integer age;
     private String name;
-    private String desc;
+    private String description;
 }

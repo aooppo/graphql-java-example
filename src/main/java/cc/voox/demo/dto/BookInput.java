@@ -7,6 +7,6 @@ import lombok.ToString;
 @Data
 public class BookInput {
     private String name;
-    private String desc;
+    private String description;
     private String user;
 }

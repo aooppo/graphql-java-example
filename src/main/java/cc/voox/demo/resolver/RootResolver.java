@@ -1,16 +1,17 @@
 package cc.voox.demo.resolver;
 
+import cc.voox.demo.dao.BookDAO;
+import cc.voox.demo.dao.UserDAO;
 import cc.voox.graphql.annotation.Query;
 import cc.voox.graphql.annotation.QueryField;
 import cc.voox.graphql.annotation.QueryMethod;
 import cc.voox.demo.model.Book;
 import cc.voox.demo.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
-import static cc.voox.demo.constant.MockDB.books;
-import static cc.voox.demo.constant.MockDB.users;
 /**
  * 前提, resolver 必须在类上声明 @Query 或者 实现 IGraphQL 接口
  *
@@ -28,6 +29,11 @@ import static cc.voox.demo.constant.MockDB.users;
 @Query
 @Component
 public class RootResolver {
+    @Autowired
+    UserDAO userDAO;
+    @Autowired
+    BookDAO bookDAO;
+
     @QueryMethod
     String test() {
         return "hello graphql!!";
@@ -39,13 +45,13 @@ public class RootResolver {
     }
 
     @QueryMethod
-    private Set<User> users() {
-        return users;
+    private List<User> users() {
+        return userDAO.findAll();
     }
 
     @QueryMethod
-    private Set<Book> books() {
-        return books;
+    private List<Book> books() {
+        return bookDAO.findAll();
     }
 
 }

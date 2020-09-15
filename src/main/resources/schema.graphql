@@ -7,15 +7,15 @@ type Query {
 }
 
 type Mutation {
-    createUser(user: UserInput): User!
-    createBook(book: BookInput): Book!
+    createUser(user: UserInput!): User!
+    createBook(book: BookInput!): Book!
     assignTo(book: ID!, user: ID!): Boolean!
 }
 
 type Book {
     id: ID!
     name: String!
-    desc: String
+    description: String
     owner: User
 }
 
@@ -23,19 +23,19 @@ type User {
     id: ID!
     name: String!
     age: Int!
-    desc: String
+    description: String
     books: [Book!]
 }
 
 input UserInput {
     name: String!
     age: Int!
-    desc: String
+    description: String
 }
 
 input BookInput {
     name: String!
-    desc: String
+    description: String
 }
 
 

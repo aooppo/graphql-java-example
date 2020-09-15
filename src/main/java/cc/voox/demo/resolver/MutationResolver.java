@@ -1,5 +1,7 @@
 package cc.voox.demo.resolver;
 
+import cc.voox.demo.dao.BookDAO;
+import cc.voox.demo.dao.UserDAO;
 import cc.voox.graphql.annotation.Query;
 import cc.voox.graphql.annotation.QueryField;
 import cc.voox.graphql.annotation.QueryMethod;
@@ -8,20 +10,25 @@ import cc.voox.demo.dto.UserInput;
 import cc.voox.demo.model.Book;
 import cc.voox.demo.model.User;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
-
-import static cc.voox.demo.constant.MockDB.books;
-import static cc.voox.demo.constant.MockDB.users;
 
 @Query("Mutation")
 @Component
 public class MutationResolver {
-
+    @Autowired
+    UserDAO userDAO;
+    @Autowired
+    BookDAO bookDAO;
+    
     @QueryMethod
     private boolean assignTo(@QueryField("book") Long bookId, @QueryField("user") Long userId) {
+        List<User> users = userDAO.findAll();
+        List<Book> books = bookDAO.findAll();
         Optional<User> optionalUser = users.stream().filter(user -> user.getId().equals(userId)).findAny();
         if (!optionalUser.isPresent()) {
             return false;
@@ -32,7 +39,7 @@ public class MutationResolver {
         }
         Book book = optionalBook.get();
         book.setUser(optionalUser.get());
-        books.add(book);
+        bookDAO.save(book);
         return true;
     }
 
@@ -40,8 +47,7 @@ public class MutationResolver {
     private Book createBook(@QueryField("book") BookInput book) {
         Book newBook = new Book();
         BeanUtils.copyProperties(book, newBook);
-        newBook.setId(new Date().getTime());
-        books.add(newBook);
+        bookDAO.save(newBook);
         return newBook;
     }
 
@@ -50,8 +56,7 @@ public class MutationResolver {
     private User createUser(@QueryField("user") UserInput user) {
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
-        newUser.setId(new Date().getTime());
-        users.add(newUser);
+        userDAO.save(newUser);
         return newUser;
     }
 
