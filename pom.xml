@@ -35,7 +35,7 @@
         <dependency>
             <groupId>cc.voox</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>1.1.0</version>
+            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

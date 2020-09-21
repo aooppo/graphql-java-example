@@ -48,3 +48,4 @@ server:
   port: 8001
 graphql:
   scan-path: cc.voox.demo
+  enable-code-mode: true
